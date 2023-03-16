@@ -1,19 +1,17 @@
-const mysql = require('mysql2');
-let connection = mysql.createConnection(
-    {
-        host        :"localhost",
-        user        :"root",
-        password    :"Amber160897",
-        database    :"school"
+const mysql = require("mysql2");
+let connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "Amber160897",
+  database: "school",
 });
 
 connection.connect((error) => {
-    if(error){
-        console.log(error);
-    }
-    else{
-        console.log('Connected correctly.');
-    }
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Connected correctly.");
+  }
 });
 
 // add column
@@ -116,106 +114,134 @@ connection.connect((error) => {
 
 // get avg for subject 1
 
-let getAvgS1 = "select avg(mark) as subject1_avg from marks where subject_id =1 ;"
+let getAvgS1 =
+  "select avg(mark) as subject1_avg from marks where subject_id =1 ;";
 connection.query(getAvgS1, (err, res) => {
-    if(err) {
-        console.log(err);
-    }
-    else {
-        console.log('Average marks for subject 1:');
-        console.log(res);
-    }
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Average marks for subject 1:");
+    console.log(res);
+  }
 });
 
 // get number of students
 
-let countS = "SELECT COUNT(*) AS nStudents FROM students ;"
+let countS = "SELECT COUNT(*) AS nStudents FROM students ;";
 connection.query(countS, (err, res) => {
-    if(err) {
-        console.log(err);
-    }
-    else {
-        console.log('Number of students:');
-        console.log(res);
-    }
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Number of students:");
+    console.log(res);
+  }
 });
 
 // get columns of groups
 
-let gColumns = "SELECT Column_name FROM information_schema.columns WHERE table_name = 'GROUPS';"
+let gColumns =
+  "SELECT Column_name FROM information_schema.columns WHERE table_name = 'GROUPS';";
 connection.query(gColumns, (err, res) => {
-    if(err) {
-        console.log(err);
-    }
-    else {
-        console.log('Columns in groups:');
-        console.log(res);
-    }
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Columns in groups:");
+    console.log(res);
+  }
 });
 
 // get students of current year
 
-let currentS = "SELECT * FROM school.students WHERE join_year > '2022-12-31';"
+let currentS = "SELECT * FROM school.students WHERE join_year > '2022-12-31';";
 connection.query(currentS, (err, res) => {
-    if(err) {
-        console.log(err);
-    }
-    else {
-        console.log('Students that joined in 2023:');
-        console.log(res);
-    }
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Students that joined in 2023:");
+    console.log(res);
+  }
 });
 
 // calc teacher by subject
 
-let teachByS = "SELECT subject_id, Count(*) as teacher_by_sub from subject_teacher group by subject_id;"
+let teachByS =
+  "SELECT subject_id, Count(*) as teacher_by_sub from subject_teacher group by subject_id;";
 connection.query(teachByS, (err, res) => {
-    if(err) {
-        console.log(err);
-    }
-    else {
-        console.log('teachers by subject:');
-        console.log(res);
-    }
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("teachers by subject:");
+    console.log(res);
+  }
 });
 
 // get students and marks when students id 1-20 or mark over 8 from last year
 
-let markConditional = "SELECT student_id, mark from marks where (student_id between 1 and 20) or (mark >= 8 and (mark_date between '2021-12-31' and '2023-01-01'));"
+let markConditional =
+  "SELECT student_id, mark from marks where (student_id between 1 and 20) or (mark >= 8 and (mark_date between '2021-12-31' and '2023-01-01'));";
 connection.query(markConditional, (err, res) => {
-    if(err) {
-        console.log(err);
-    }
-    else {
-        console.log('students and marks when students id 1-20 or makr 0over 8 from last year:');
-        console.log(res);
-    }
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(
+      "students and marks when students id 1-20 or makr 0over 8 from last year:"
+    );
+    console.log(res);
+  }
 });
 
-//get abg mark by subject of last year 
+//get abg mark by subject of last year
 
-let lYSubMark = "SELECT subject_id, AVG(mark) from marks where mark_date between '2021-12-31' and '2023-01-01' group by subject_id;"
+let lYSubMark =
+  "SELECT subject_id, AVG(mark) from marks where mark_date between '2021-12-31' and '2023-01-01' group by subject_id;";
 connection.query(lYSubMark, (err, res) => {
-    if(err) {
-        console.log(err);
-    }
-    else {
-        console.log('student\'s avg mark of last year:');
-        console.log(res);
-    }
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("student's avg mark of last year:");
+    console.log(res);
+  }
 });
-
 
 // get student's avg mark of last year
 
-let lYMark = "SELECT student_id, AVG(mark) from marks where mark_date between '2021-12-31' and '2023-01-01' group by student_id;"
+let lYMark =
+  "SELECT student_id, AVG(mark) from marks where mark_date between '2021-12-31' and '2023-01-01' group by student_id;";
 connection.query(lYMark, (err, res) => {
-    if(err) {
-        console.log(err);
-    }
-    else {
-        console.log('student\'s avg mark of last year:');
-        console.log(res);
-    }
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("student's avg mark of last year:");
+    console.log(res);
+  }
 });
 
+// get students and subjects
+
+let getSnS =
+  "SELECT first_name, last_name, title FROM school.students as s join marks as m on (s.student_id=m.student_id) join subject as sub on (m.subject_id=sub.subject_id);";
+  connection.query(getSnS, (err, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("students and their subjects:");
+      console.log(res);
+    }
+  });
+
+
+  // get teachers and their subjects
+
+  let getTnS =
+  "SELECT first_name, last_name, title FROM school.teachers as t join subject_teacher as st on (t.teacher_id = st.teacher_id) join subject as s on (st.subject_id = s.subject_id);";
+  connection.query(getTnS, (err, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Teachers and their subjects:");
+      console.log(res);
+    //   console.log(res.forEach((teacher) => {
+    //     console.log(`teacher ${teacher.first_name} teaches ${teacher.title}`);
+    //   }));
+    }
+  });
